@@ -1,0 +1,4 @@
+[flask]
+flask-ansible.sxvova.opensource-ukraine.org
+[sentry]
+sentry-ansible.sxvova.opensource-ukraine.org
