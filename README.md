@@ -1,6 +1,6 @@
 # Playbook for *DEMO3*
-This **playbook** was invented to help automate certain kinds of processes.  
-It can generate and mount **SSL certificate** by installing **nginx** and using **certbot**.  
-For a **playbook**, it will not be a problem to install **GitLab** and **Jenkins** with the ability to backup data.  
-For **GitLab**, the creation and attachment of an **SSL certificate** is provided.  
-For convenience, all tasks are distributed by **role**.  
+
+These **playbooks** can automatically deploy the necessary *infrastructure*.  
+**Flask playbook** pulls the application *image* onto the machine and launches it.  
+**Sentry playbook** sets *Sentry* and creates a *superuser*.  
+For correct work of **sentry playbook** when building the image, you need to delete [27-38] lines from the   **src/sentry/receivers/users.py** file. 
