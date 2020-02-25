@@ -149,6 +149,7 @@ if [ $CI ]; then
   echo ""
   echo "  docker-compose run --rm web createuser"
   echo ""
+  docker-compose run --rm web createuser --superuser --email test@example.com --password test123TEST
 else
   $dcr web upgrade
 fi
@@ -166,5 +167,5 @@ fi
 
 cleanup
 docker-compose up -d
-docker exec -t sentry_onpremise_web_1 sentry upgrade
+#docker exec -t sentry_onpremise_web_1 sentry upgrade
 
