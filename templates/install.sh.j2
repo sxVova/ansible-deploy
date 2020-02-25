@@ -149,6 +149,7 @@ if [ $CI ]; then
   echo ""
   echo "  docker-compose run --rm web createuser"
   echo ""
+  docker-compose run --rm web createuser(root,1513)
 else
   $dcr web upgrade
 fi
