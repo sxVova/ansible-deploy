@@ -163,5 +163,5 @@ if [ "$SENTRY_DATA_NEEDS_MIGRATION" ]; then
     "mkdir -p /tmp/files; mv /data/* /tmp/files/; mv /tmp/files /data/files; chown -R sentry:sentry /data"
 fi
 cleanup
-#docker exec -t sentry_onpremise_web_1 sentry upgrade
+
 
