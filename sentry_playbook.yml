@@ -21,11 +21,20 @@
         mode: +x        
 
     - name: Make deploy
-      shell: /home/{{ ansible_user }}/{{ project_name }}/install.sh
+      shell: echo "n" | /home/{{ ansible_user }}/{{ project_name }}/install.sh
 
-    #- name: Delete deploy files
-    #  file: 
-    #    path: /home/'{{ ansible_user }}'/'{{ project_name }}'
-    #    state: absent
+    - name: Create sentry user
+      shell: docker-compose run --rm web createuser --superuser --email '{{ sentry_user_email }}' --password '{{ sentry_user_password }}'
+    
+    - name: Up all containers
+      shell: docker-compose up -d
+    
+    - name: Make migration
+      shell: docker exec -t {{ project_name }}_web_1 sentry upgrade
+
+    - name: Delete deploy files
+      file: 
+        path: /home/'{{ ansible_user }}'/'{{ project_name }}'
+        state: absent
 
 ...

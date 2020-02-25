@@ -162,8 +162,6 @@ if [ "$SENTRY_DATA_NEEDS_MIGRATION" ]; then
   $dcr --entrypoint \"/bin/bash\" web -c \
     "mkdir -p /tmp/files; mv /data/* /tmp/files/; mv /tmp/files /data/files; chown -R sentry:sentry /data"
 fi
-docker-compose run --rm web createuser --superuser --email rasavo@gmail.com --password 1513
 cleanup
-docker-compose up -d
 #docker exec -t sentry_onpremise_web_1 sentry upgrade
 

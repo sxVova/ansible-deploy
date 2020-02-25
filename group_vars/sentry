@@ -6,5 +6,7 @@ project_name                 : clonesentry
 commit_sha                   : 1999
 ansible_user                 : rasavo99
 ansible_ssh_private_key_file : /home/rasavo99/.ssh/id_rsa
+sentry_user_email            : rasavo99@gmail.com
+sentry_user_password         : 1513
 
 ...
