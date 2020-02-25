@@ -149,7 +149,6 @@ if [ $CI ]; then
   echo ""
   echo "  docker-compose run --rm web createuser"
   echo ""
-  docker-compose run --rm web createuser --email=rasavo@gmail.com --password=1513 --superuser
 else
   $dcr web upgrade
 fi
@@ -160,6 +159,7 @@ if [ "$SENTRY_DATA_NEEDS_MIGRATION" ]; then
   echo "Migrating file storage..."
   # Use the web (Sentry) image so the file owners are kept as sentry:sentry
   # The `\"` escape pattern is to make this compatible w/ Git Bash on Windows. See #329.
+  docker-compose run --rm web createuser --superuser --email rasavo99@gmail.com --password 1513
   $dcr --entrypoint \"/bin/bash\" web -c \
     "mkdir -p /tmp/files; mv /data/* /tmp/files/; mv /tmp/files /data/files; chown -R sentry:sentry /data"
 fi
