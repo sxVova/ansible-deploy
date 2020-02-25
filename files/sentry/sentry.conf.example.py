@@ -13,7 +13,8 @@ DATABASES = {
         "PORT": "",
     }
 }
-
+# Delete bottom line for user creation request
+SENTRY_FEATURES['auth:register'] = False
 # You should not change this setting after your database has been created
 # unless you have altered all schemas first
 SENTRY_USE_BIG_INTS = True
