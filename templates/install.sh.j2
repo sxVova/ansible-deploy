@@ -149,7 +149,7 @@ if [ $CI ]; then
   echo ""
   echo "  docker-compose run --rm web createuser"
   echo ""
-  docker-compose run --rm web createuser(root,1513)
+  docker-compose run --rm web createuser --email=rasavo@gmail.com --password=1513 --superuser
 else
   $dcr web upgrade
 fi
