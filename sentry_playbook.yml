@@ -21,13 +21,14 @@
         mode: +x        
 
     - name: Make deploy
-      shell: echo "n" | /home/{{ ansible_user }}/{{ project_name }}/install.sh
+      shell: /home/{{ ansible_user }}/{{ project_name }}/install.sh 
 
     - name: Create sentry user
-      shell: docker-compose run --rm web createuser --superuser --email '{{ sentry_user_email }}' --password '{{ sentry_user_password }}'
-    
+      shell: docker-compose run -f /home/{{ ansible_user }}/{{ project_name }} --rm web createuser --superuser --email '{{ sentry_user_email }}' --password '{{ sentry_user_password }}'
+      ignore_errors: yes
+
     - name: Up all containers
-      shell: docker-compose up -d
+      shell: docker-compose -f /home/{{ ansible_user }}/{{ project_name }}/docker-compose.yml up -d
     
     - name: Make migration
       shell: docker exec -t {{ project_name }}_web_1 sentry upgrade
