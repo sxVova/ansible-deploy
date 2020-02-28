@@ -53,11 +53,15 @@ services:
   memcached:
     << : *restart_policy
     image: 'memcached:1.5-alpine'
+    ports:
+      - '127.0.0.1:11211:11211/tcp'
   redis:
     << : *restart_policy
     image: 'redis:5.0-alpine'
     volumes:
       - 'sentry-redis:/data'
+    ports:
+      - '127.0.0.1:6379:6379/tcp'
   postgres:
     << : *restart_policy
     image: 'postgres:9.6'
@@ -65,6 +69,8 @@ services:
       POSTGRES_HOST_AUTH_METHOD: 'trust'
     volumes:
       - 'sentry-postgres:/var/lib/postgresql/data'
+    ports:
+      - '127.0.0.1:5432:5432/tcp'
   zookeeper:
     << : *restart_policy
     image: 'confluentinc/cp-zookeeper:5.1.2'
@@ -94,6 +100,8 @@ services:
       - 'sentry-kafka:/var/lib/kafka/data'
       - 'sentry-kafka-log:/var/lib/kafka/log'
       - 'sentry-secrets:/etc/kafka/secrets'
+    ports:
+      - '127.0.0.1:9092:9092/tcp'
   clickhouse:
     << : *restart_policy
     image: 'yandex/clickhouse-server:19.11'
@@ -137,7 +145,7 @@ services:
   web:
     << : *sentry_defaults
     ports:
-      - '9000:9000/tcp'
+      - '127.0.0.1:9000:9000/tcp'
   cron:
     << : *sentry_defaults
     command: run cron
@@ -176,3 +184,4 @@ volumes:
   sentry-zookeeper-log:
   sentry-kafka-log:
   sentry-smtp-log:
+

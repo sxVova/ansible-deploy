@@ -1,0 +1,53 @@
+---
+# tasks file for sentry_monitoring_role
+- name: Install nginx
+  apt:
+    name: nginx=1.14.*
+
+############ Install stackdriver-agent ################
+
+- name: Copy monitoring-agent script
+  copy:
+    src: install-monitoring-agent.sh
+    dest: /home/{{ ansible_user }}/{{ project_name }}/
+
+- name: Run script
+  shell:
+    cmd: bash install-monitoring-agent.sh
+    chdir: /home/{{ ansible_user }}/{{ project_name }}/
+
+############ Monitoring setup for Nginx ###############
+
+- name: Enable the status information handler in Nginx
+  copy:
+    src: status.conf
+    dest: /etc/nginx/conf.d/
+
+- name: Reload the Nginx configuration
+  service:
+    name: nginx
+    state: reloaded
+
+- name: Enable the Nginx monitoring plugin
+  copy:
+    src: nginx.conf
+    dest: /opt/stackdriver/collectd/etc/collectd.d/
+
+- name: Restart the monitoring agent
+  service:
+    name: stackdriver-agent
+    state: restarted
+
+############ Monitoring setup for memcached ###########
+
+- name: Enable the memcached monitoring plugin
+  copy:
+    src: memcached.conf
+    dest: /opt/stackdriver/collectd/etc/collectd.d/
+
+- name: Restart the monitoring agent
+  service:
+    name: stackdriver-agent
+    state: restarted
+
+...

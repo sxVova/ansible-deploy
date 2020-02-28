@@ -1,4 +1,4 @@
 [flask]
 flask-ansible.sxvova.opensource-ukraine.org
 [sentry]
-34.73.245.103
+35.229.34.146
