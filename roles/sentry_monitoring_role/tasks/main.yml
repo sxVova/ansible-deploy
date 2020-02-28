@@ -45,6 +45,15 @@
     src: memcached.conf
     dest: /opt/stackdriver/collectd/etc/collectd.d/
 
+- name: Add credential
+  copy:
+    src: application_default_credentials.json
+    dest: /etc/google/auth
+    owner: root
+    group: root
+    mode: '0400'
+
+
 - name: Restart the monitoring agent
   service:
     name: stackdriver-agent
