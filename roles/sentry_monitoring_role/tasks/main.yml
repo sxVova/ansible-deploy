@@ -45,6 +45,11 @@
     src: memcached.conf
     dest: /opt/stackdriver/collectd/etc/collectd.d/
 
+- name: Create credential destonation folder
+  file:
+    path: /etc/google/auth
+    state: directory
+
 - name: Add credential
   copy:
     src: application_default_credentials.json

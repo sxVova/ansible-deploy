@@ -5,6 +5,6 @@ registry_admin               : danjake
 project_name                 : flask-app
 commit_sha                   : latest
 ansible_user                 : rasavo99
-ansible_ssh_private_key_file : /home/rasavo99/.ssh/id_rsa
+ansible_ssh_private_key_file : /home/rasavo99/ansible-deploy/id_rsa
 
 ...
