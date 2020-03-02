@@ -18,9 +18,6 @@ Role Variables
 | `registry_admin `             | Registry admin name.                               |
 | `project_name `               | Name of required project.                          |
 | `commit_sha`                  | The version of the image that is tracked by commit.|
-| `sentry_user_email`           | Sentry **super user** name.                        |
-| `sentry_user_password`        | Sentry **super user** password.                    |
-
 
 Example Playbook
 ----------------
