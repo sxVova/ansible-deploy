@@ -83,6 +83,8 @@ services:
       - 'sentry-zookeeper:/var/lib/zookeeper/data'
       - 'sentry-zookeeper-log:/var/lib/zookeeper/log'
       - 'sentry-secrets:/etc/zookeeper/secrets'
+    ports:
+      - '127.0.0.1:2181:2181/tcp'
   kafka:
     << : *restart_policy
     depends_on:

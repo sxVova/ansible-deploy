@@ -33,11 +33,6 @@
     src: nginx.conf
     dest: /opt/stackdriver/collectd/etc/collectd.d/
 
-- name: Restart the monitoring agent
-  service:
-    name: stackdriver-agent
-    state: restarted
-
 ############ Monitoring setup for memcached ###########
 
 - name: Enable the memcached monitoring plugin
@@ -59,9 +54,52 @@
     mode: '0400'
 
 
+############ Monitoring setup for Zookeeper ###########
+- name: Enable the Zookeeper monitoring plugin
+  copy:
+    src: zookeeper.conf
+    dest: /opt/stackdriver/collectd/etc/collectd.d/
+
+############ Monitoring setup for Redis ###############
+- name: Install hiredis client library
+  apt:
+    name: libhiredis0.13
+
+- name: Copy the Redis configuration file
+  copy:
+    src: redis.conf
+    dest: /opt/stackdriver/collectd/etc/collectd.d/
+
+############ Monitoring setup for Postgres ############
+- name: Create db-user
+  shell:
+    cmd: docker-compose exec postgres psql -c 'CREATE USER "stack-driver";' -U postgres
+    chdir: /home/{{ ansible_user }}/{{ project_name }}
+
+- name: Create db
+  shell:
+    cmd: docker-compose exec postgres psql -c 'CREATE DATABASE test_db;' -U postgres
+    chdir: /home/{{ ansible_user }}/{{ project_name }}
+
+- name: Give grant privileges
+  shell:
+    cmd: docker-compose exec postgres psql -c 'GRANT ALL PRIVILEGES ON DATABASE test_db
+    chdir: /home/{{ ansible_user }}/{{ project_name }}
+
+
+- name: Install "libpq5"
+  apt:
+    name: libpq5
+
+- name: Enable the Postgres monitoring plugin
+  copy:
+    src: postgresql.conf
+    dest: /opt/stackdriver/collectd/etc/collectd.d/
+
+############ Restart the monitoring agent #############
+
 - name: Restart the monitoring agent
   service:
     name: stackdriver-agent
     state: restarted
-
 ...
