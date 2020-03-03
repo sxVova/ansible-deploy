@@ -14,7 +14,7 @@ DATABASES = {
     }
 }
 # Delete bottom line for user creation request
-SENTRY_FEATURES['auth:register'] = False
+#SENTRY_FEATURES['auth:register'] = False
 # You should not change this setting after your database has been created
 # unless you have altered all schemas first
 SENTRY_USE_BIG_INTS = True
@@ -28,7 +28,7 @@ SENTRY_USE_BIG_INTS = True
 
 # Instruct Sentry that this install intends to be run by a single organization
 # and thus various UI optimizations should be enabled.
-SENTRY_SINGLE_ORGANIZATION = True
+SENTRY_SINGLE_ORGANIZATION = False
 
 SENTRY_OPTIONS["system.event-retention-days"] = int(env('SENTRY_EVENT_RETENTION_DAYS', '90'))
 
